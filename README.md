@@ -34,10 +34,15 @@ Jest is a testing framework for JavaScript. To install Jest globally, run the fo
 
 If you want to skip installation and only want to play around with cron strings, you can open `index.html` in your browser. This provides a simple interface for testing cron strings without needing to install anything. Here's how to do it:
 
+### HTML from local
 1. **Open the HTML File**: Locate the `index.html` file in the project directory. You can do this by navigating to the project folder in your file explorer or terminal.
 2. **Open in a Browser**: Double-click the `index.html` file to open it in your default web browser. Alternatively, you can right-click the file and select "Open with" followed by your preferred web browser.
 3. **Use the Interface**: Once the HTML page is open in your browser, you'll see a form where you can enter your cron expression. You can also specify the number of occurrences you want to see and a reference date for the calculation. After filling in the details, click the "Parse" button to see the parsed cron string in a table format.
 4. **Experiment with Different Cron Strings**: Feel free to experiment with different cron strings to see how they are parsed and expanded. This can be a great way to understand how cron expressions work and how they can be broken down into their component parts.
+
+### Github Pages
+1. alternatively, you can use: https://manojvysyaraju.github.io/BasicCronParser to test (this doesn't require for to pull in changes to your local)
+2. testing will be same as above
 
 #### Note
 

@@ -23,6 +23,10 @@ describe( 'parsing cron field', () => {
         expect( () => parseCronField( '1-A', 0, 59 ) ).toThrow();
     } );
 
+    test( 'should throw error for invalid field syntax with invalid start', () => {
+        expect( () => parseCronField( 'A/2', 0, 59 ) ).toThrow();
+    } );
+
     test( 'should throw error for invalid field syntax with invalid range when start greater than end', () => {
         expect( () => parseCronField( '10-1', 0, 59 ) ).toThrow();
     } );
@@ -58,7 +62,7 @@ describe( 'parsing cron field', () => {
 } );
 
 describe( 'Cron Parser', () => {
-    it( 'should parse a simple cron expression', () => {
+    test( 'should parse a simple cron expression', () => {
         const cronString = '30 9 1-10/5,3-12/3 2 *';
         const result = parseCron( cronString );
         expect( result ).toEqual( {
@@ -97,6 +101,10 @@ describe( 'Cron Parser', () => {
 } );
 
 describe( 'getNextOccurrence', () => {
+    test( 'should throw error for invalid cron expression for next occurrence', () => {
+        expect( () => getNextOccurrence( 'invalid cron' ) ).toThrow();
+    } );
+
     test( 'should increment year when month overflows', () => {
         const cronString = '0 0 1 12 *';
         const nextOccurrence = getNextOccurrence( cronString, referenceDate );
@@ -145,7 +153,8 @@ describe( 'getNextOccurrence', () => {
 } );
 
 describe( 'Getting next occurrences', () => {
-    it( 'should calculate the next occurrences for a given cron expression', () => {
+
+    test( 'should calculate the next occurrences for a given cron expression', () => {
         const cronString = '10-30 5-18 1-10/5,3-12/3 2 *';
         const nextOccurrences = getNextOccurrences( cronString, referenceDate );
         expect( nextOccurrences.length ).toBeGreaterThan( 0 );
@@ -171,8 +180,13 @@ describe( 'Getting next occurrences', () => {
 
     test( 'should return empty array when invalid cron is given', () => {
         const cronString = '30 9 30 2 *'; // impossible date
-        const nextOccurrences = getNextOccurrences( cronString, referenceDate );
+        const nextOccurrences = getNextOccurrences( cronString, referenceDate, 1 );
         expect( nextOccurrences ).toEqual( [] );
     } );
 
+    test( 'should throw error for invalid cron expression for next occurrence', () => {
+        const cronString = '30 9 30 2'; // impossible cron
+        const nextOccurrences = getNextOccurrences( cronString );
+        expect( nextOccurrences ).toEqual( [] );
+    } );
 } );

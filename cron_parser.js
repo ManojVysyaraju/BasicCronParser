@@ -12,8 +12,12 @@ function parseCron ( cronString ) {
     const weekdayValues = [];
     let command = '';
     try {
+        const splits = cronString.split( ' ' );
+        if ( !( splits.length == 6 || splits.length == 5 ) ) {
+            throw new Error( `Invalid cron expression: ${ cronString }. Expected format: minutes hours days months weekdays command[optional]` );
+        }
         // Split the cron string into its components using spaces as delimiters.
-        const [ minutes, hours, days, months, weekdays, comm ] = cronString.split( ' ' );
+        const [ minutes, hours, days, months, weekdays, comm ] = splits;
         // Parse each component using the parseCronField function.
         minuteValues.push( ...parseCronField( minutes, 0, 59 ) );
         hourValues.push( ...parseCronField( hours, 0, 23 ) );
@@ -100,7 +104,7 @@ function parseCronField ( field, min, max ) {
         }
         // validate the start and end values against the min and max
         if ( start > max || end > max || start < min || end < min || start > end ) {
-            throw new Error( `Invalid syntax in the part: ${ part }. Values must be within the allowed range.` );
+            throw new Error( `Invalid syntax in the part: ${ part }. Values must be within the allowed range: ${ min }-${ max }` );
         }
         // Add each value in the range to the set, incrementing by the step
         for ( let i = start; i <= end; i += step ) {

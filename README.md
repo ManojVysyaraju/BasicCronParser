@@ -80,5 +80,3 @@ cron-parser/
 - **`jest.config.js`**: Configuration file for the Jest testing framework, specifies testing parameters.
 - **`readme.md`**: Offers a comprehensive overview of the project, including setup instructions and usage examples.
 - **`styles.css`**: Defines CSS styles for the HTML interface, ensuring a user-friendly visual presentation.
-
-

@@ -7,7 +7,7 @@ document.getElementById( 'cronForm' ).addEventListener( 'submit', function ( eve
     const cronTableBody = document.getElementById( 'cronTable' ).getElementsByTagName( 'tbody' )[ 0 ];
 
     try {
-        const parsedCron = parseCron( cronInput );
+        const parsedCron = parseCron( cronInput.trim() );
         cronTableBody.innerHTML = ''; // Clear previous results
 
         // Assuming parsedCron is an object with properties for each cron part
@@ -34,6 +34,17 @@ document.getElementById( 'cronForm' ).addEventListener( 'submit', function ( eve
             cell2.textContent = occurrence;
         } );
     } catch ( error ) {
-        resultDiv.textContent = 'Error parsing cron expression: ' + error.message;
+        cronTableBody.innerHTML = '';
+        showToast( 'Error parsing cron expression: ' + error.message );
     }
 } );
+function showToast ( message ) {
+    const toast = document.createElement( 'div' );
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild( toast );
+
+    setTimeout( () => {
+        document.body.removeChild( toast );
+    }, 5000 ); // Remove the toast after 3 seconds
+}
